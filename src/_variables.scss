@@ -1,0 +1,33 @@
+// Colors
+$color-primary: #5f00e0;    // Purple
+$color-secondary: #ff5b14;  // Orange
+$color-dark: #121212;       // Dark background
+$color-light: #ffffff;      // Light text
+
+// Fonts
+$font-sans: 'Inter', system-ui, sans-serif;
+$font-display: 'Montserrat', sans-serif;
+$font-impact: 'Bangers', cursive;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+// Container max width
+$container-max-width: 1200px;
+
+// Z-index
+$z-index-header: 50;
+$z-index-modal: 100;
+$z-index-dropdown: 30;
+$z-index-tooltip: 40;
+
+// Export variables for use in JS/TS files
+:export {
+  colorPrimary: $color-primary;
+  colorSecondary: $color-secondary;
+  colorDark: $color-dark;
+  colorLight: $color-light;
+} 

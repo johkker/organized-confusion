@@ -1,0 +1,253 @@
+@import '../../_variables';
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-index-header;
+  transition: all 0.3s ease;
+  width: 100%;
+  
+  &.scrolled {
+    background-color: rgba($color-dark, 0.9);
+    padding: 0.75rem 0;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  &.transparent {
+    background-color: transparent;
+    padding: 1.25rem 0;
+  }
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  
+  h1 {
+    font-size: 1.8rem;
+    font-family: $font-impact;
+    font-weight: 400;
+    letter-spacing: 2px;
+    
+    .logo-text {
+      color: $color-light;
+    }
+    
+    .logo-highlight {
+      color: $color-secondary;
+    }
+  }
+}
+
+.desktop-menu {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+
+  @media (min-width: $breakpoint-md) {
+    display: flex;
+  }
+}
+
+.nav-button {
+  position: relative;
+  background: none;
+  border: none;
+  color: $color-light;
+  font-family: $font-impact;
+  font-weight: 400;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  letter-spacing: 1px;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: $color-primary;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover, &.active {
+    color: $color-secondary;
+    
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}
+
+.social-icon {
+  color: $color-light;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: $color-secondary;
+  }
+  
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.mobile-menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: $color-light;
+  cursor: pointer;
+  
+  @media (min-width: $breakpoint-md) {
+    display: none;
+  }
+  
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.mobile-menu {
+  display: block;
+  background-color: rgba($color-dark, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 1rem 0;
+  
+  @media (min-width: $breakpoint-md) {
+    display: none;
+  }
+}
+
+.mobile-menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobile-nav-button {
+  background: none;
+  border: none;
+  color: $color-light;
+  font-family: $font-impact;
+  font-weight: 400;
+  font-size: 1.5rem;
+  text-align: left;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  letter-spacing: 1px;
+  
+  &:hover, &.active {
+    color: $color-secondary;
+  }
+}
+
+.mobile-social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $color-light;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: $color-secondary;
+  }
+  
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+/* Special styling for tickets button */
+.ticket-nav-button {
+  position: relative;
+  background-color: rgba(255, 91, 20, 0.2);
+  color: $color-light;
+  font-weight: 600;
+  border: 1px solid $color-secondary;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  
+  &::after {
+    display: none;
+  }
+  
+  &.active, &:hover {
+    background-color: $color-secondary;
+    color: white;
+    
+    .ticket-indicator {
+      background-color: white;
+    }
+  }
+}
+
+.mobile-ticket-button {
+  position: relative;
+  background-color: rgba(255, 91, 20, 0.2);
+  color: $color-light;
+  font-weight: 600;
+  border: 1px solid $color-secondary;
+  padding-left: 1rem;
+  
+  &.active, &:hover {
+    background-color: $color-secondary;
+    color: white;
+    
+    .ticket-indicator {
+      background-color: white;
+    }
+  }
+}
+
+.ticket-indicator {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: $color-secondary;
+  top: 0.5rem;
+  right: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba($color-secondary, 0.7);
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba($color-secondary, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba($color-secondary, 0);
+  }
+} 

@@ -1,0 +1,90 @@
+@import "./variables";
+
+// Animation keyframes
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// App-specific styling
+.app-wrapper {
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
+}
+
+// Section styles
+section {
+  position: relative;
+  z-index: 1;
+  
+  &.section-dark {
+    background-color: rgba($color-dark, 0.7);
+  }
+}
+
+// Header styles
+header {
+  &.scrolled {
+    background-color: rgba($color-dark, 0.9);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    backdrop-filter: blur(12px);
+  }
+  
+  &.transparent {
+    background-color: transparent;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+}
+
+// Landing section
+.landing-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    
+    @media (min-width: 768px) {
+      font-size: 4.5rem;
+    }
+    
+    span {
+      color: $color-secondary;
+    }
+  }
+  
+  p {
+    font-size: 1.25rem;
+    max-width: 42rem;
+    margin: 0 auto 2.5rem;
+    
+    @media (min-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// Section headings
+.section-heading {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  text-align: center;
+  
+  span {
+    &.primary {
+      color: $color-primary;
+    }
+    
+    &.secondary {
+      color: $color-secondary;
+    }
+  }
+} 

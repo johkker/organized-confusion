@@ -1,0 +1,624 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Custom styles go here */
+
+/* Base app styling */
+.font-display {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Theme colors */
+:root {
+  --color-primary: #5f00e0;    /* Purple */
+  --color-secondary: #ff5b14;  /* Orange */
+  --color-dark: #121212;       /* Dark background */
+  --color-light: #ffffff;      /* Light text */
+}
+
+/* Apply color classes not in Tailwind defaults */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-dark {
+  background-color: var(--color-dark);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-light {
+  color: var(--color-light);
+}
+
+/* App Container */
+.app {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Background Container */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  padding-top: 60px; /* Header height */
+}
+
+/* Hero Section */
+.hero {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Logo styles */
+.title-logo-container {
+  position: relative;
+  min-height: 200px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.logo-container {
+  width: 90%;
+  max-width: 1024px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-logo {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  animation: fadeIn 2s ease-out forwards;
+}
+
+/* Title transition */
+.hero-title {
+  font-size: 4.5rem;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  font-family: 'Bangers', cursive;
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+  position: absolute;
+  left: 0;
+  right: 0;
+  letter-spacing: 3px;
+  text-shadow: 4px 4px 0px rgba(95, 0, 224, 0.6);
+}
+
+.hero-title.preparing-fade-out {
+  opacity: 0.8;
+  animation: slowPulse 2s infinite alternate;
+}
+
+.hero-title span {
+  color: var(--color-secondary);
+  text-shadow: 4px 4px 0px rgba(95, 0, 224, 0.6);
+}
+
+/* Transition animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slowPulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 2s ease-out forwards;
+}
+
+.fade-out {
+  animation: fadeOut 1.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Section styling */
+.section {
+  padding: 4rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Ingressos section (Orange) */
+.ingressos-section .section-title {
+  font-family: 'Bangers', cursive;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  color: var(--color-light);
+  text-shadow: 3px 3px 0px rgba(255, 91, 20, 0.5);
+}
+
+/* Events section (Purple) */
+#events .section-title {
+  font-family: 'Bangers', cursive;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  color: var(--color-light);
+  text-shadow: 3px 3px 0px rgba(95, 0, 224, 0.5);
+}
+
+/* Catalog section (Orange) */
+#catalog .section-title {
+  font-family: 'Bangers', cursive;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  color: var(--color-light);
+  text-shadow: 3px 3px 0px rgba(255, 91, 20, 0.5);
+}
+
+/* Contact section (Purple) */
+#contact .section-title {
+  font-family: 'Bangers', cursive;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  color: var(--color-light);
+  text-shadow: 3px 3px 0px rgba(95, 0, 224, 0.5);
+}
+
+.section-description {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #4a00b0;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #e04b10;
+}
+
+/* Section-specific button styles */
+/* Ingressos section buttons (Orange) */
+.ingressos-section .ticket-link-button {
+  background-color: var(--color-secondary);
+}
+.ingressos-section .ticket-link-button:hover {
+  background-color: #e04b10;
+}
+
+/* Events section buttons (Purple) */
+#events .event-button {
+  background-color: var(--color-primary);
+}
+#events .event-button:hover {
+  background-color: #4a00b0;
+}
+
+/* Catalog section buttons (Orange) */
+#catalog .profile-button {
+  background-color: var(--color-secondary);
+}
+#catalog .profile-button:hover {
+  background-color: #e04b10;
+}
+
+/* Contact section buttons (Purple) */
+#contact .submit-button {
+  background-color: var(--color-primary);
+}
+#contact .submit-button:hover {
+  background-color: #4a00b0;
+}
+
+/* Text colors */
+.text-white {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.text-secondary {
+  color: #ff6b6b;
+}
+
+/* Footer */
+.footer {
+  padding: 2rem 0;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.footer-copyright {
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3.2rem;
+    letter-spacing: 2px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  /* Maintain section title styles but adjust size */
+  .ingressos-section .section-title,
+  #catalog .section-title,
+  #events .section-title,
+  #contact .section-title {
+    font-size: 2.8rem;
+  }
+  
+  .title-logo-container {
+    min-height: 150px;
+  }
+  
+  .logo-container {
+    width: 90%;
+    max-width: 100%;
+  }
+  
+  .ticket-info h3 {
+    font-size: 1.5rem;
+  }
+  
+  .ticket-price {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+  }
+  
+  /* Maintain section title styles but adjust size */
+  .ingressos-section .section-title,
+  #catalog .section-title,
+  #events .section-title,
+  #contact .section-title {
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* Ingressos Section */
+.ingressos-section {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ingressos-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+/* Ticket card with 3D flip effect */
+.ticket-card {
+  width: 300px;
+  height: 180px;
+  perspective: 1000px;
+  margin: 0 auto;
+}
+
+.ticket-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 25px rgba(255, 91, 20, 0.3);
+  border-radius: 12px;
+}
+
+.ticket-card:hover .ticket-card-inner {
+  transform: rotateY(180deg);
+}
+
+.ticket-card-front, .ticket-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ticket-card-front {
+  background: linear-gradient(135deg, rgba(255, 91, 20, 0.9), rgba(255, 91, 20, 0.7));
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.ticket-card-back {
+  background: linear-gradient(135deg, rgba(76, 24, 196, 0.8), rgba(46, 27, 117, 0.6));
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  text-align: center;
+  color: white;
+}
+
+.ticket-card-back p {
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+.ticket-info {
+  text-align: center;
+}
+
+.ticket-info h3 {
+  font-family: 'Bangers', cursive;
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 0.2rem;
+  letter-spacing: 1px;
+}
+
+.ticket-date, .ticket-location {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.ticket-price {
+  font-family: 'Bangers', cursive;
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  letter-spacing: 1px;
+}
+
+/* Ticket button */
+.ticket-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background-color: var(--color-secondary);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(255, 91, 20, 0.3);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Bangers', cursive;
+  letter-spacing: 1px;
+}
+
+.ticket-link-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.ticket-link-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(255, 91, 20, 0.4);
+}
+
+.ticket-link-button:hover::before {
+  transform: translateX(100%);
+}
+
+.ticket-link-button svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.ticket-link-button:hover svg {
+  transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+  .ticket-card {
+    width: 280px;
+    height: 160px;
+  }
+  
+  .ticket-info h3 {
+    font-size: 1.3rem;
+  }
+  
+  .ticket-price {
+    font-size: 1.3rem;
+  }
+  
+  .ticket-link-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+}
