@@ -58,7 +58,7 @@ const DJCard = ({ dj, onClick }: { dj: DJ, onClick?: () => void }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="bg-dark/50 backdrop-blur-sm rounded-lg overflow-hidden shadow-xl h-full"
+      className="bg-dark/50 backdrop-blur-sm rounded-lg overflow-hidden shadow-xl h-full carousel-content-container"
       onClick={onClick}
     >
       <div className="relative h-64">
@@ -68,11 +68,11 @@ const DJCard = ({ dj, onClick }: { dj: DJ, onClick?: () => void }) => {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-dark to-transparent" />
-        <div className="absolute bottom-0 left-0 p-4">
-          <span className="inline-block px-4 py-2 bg-[#ff5b14] text-white text-sm font-semibold rounded-full mb-2">
+        <div className="absolute bottom-0 left-0 p-4 dj-content-container">
+          <span className="inline-block px-4 py-2 bg-[#ff5b14] text-white text-sm font-semibold rounded-full mb-2 dj-genre">
             {dj.genre}
           </span>
-          <h3 className="text-xl font-display font-semibold text-white">{dj.name}</h3>
+          <h3 className="text-xl font-display font-semibold text-white dj-name">{dj.name}</h3>
         </div>
       </div>
       <div className="p-4 flex flex-col h-[calc(100%-16rem)]">

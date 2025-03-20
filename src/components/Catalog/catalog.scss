@@ -76,10 +76,52 @@
 .carousel-item {
   scroll-snap-align: start;
   height: 600px; /* Fixed height for cards */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   
   @media (min-width: vars.$breakpoint-md) {
     flex: 0 0 calc(33.333% - 1.333rem);
   }
+}
+
+.dj-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 70%;
+  width:max-content;
+}
+
+.dj-genre {
+  width: 100%;
+  background-color: #5f00e0;
+  padding: 0.12rem 0.2rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.dj-name {
+  width: 100%;
+  background-color: #ff5b14;
+  padding: 0.12rem 0.2rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #5d00e028;
 }
 
 .carousel-nav-button {
