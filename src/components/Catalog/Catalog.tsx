@@ -52,6 +52,23 @@ const mockDJs: DJ[] = [
 ]
 
 const DJCard = ({ dj, onClick }: { dj: DJ, onClick?: () => void }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Check initially
+    checkMobile();
+    
+    // Set up listener for resize
+    window.addEventListener('resize', checkMobile);
+    
+    // Clean up
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -61,7 +78,7 @@ const DJCard = ({ dj, onClick }: { dj: DJ, onClick?: () => void }) => {
       className="bg-dark/50 backdrop-blur-sm rounded-lg overflow-hidden shadow-xl h-full carousel-content-container"
       onClick={onClick}
     >
-      <div className="relative h-64">
+      <div className={`relative ${isMobile ? 'h-44' : 'h-64'}`}>
         <img 
           src={dj.image} 
           alt={dj.name} 
@@ -75,28 +92,50 @@ const DJCard = ({ dj, onClick }: { dj: DJ, onClick?: () => void }) => {
           <h3 className="text-xl font-display font-semibold text-white dj-name">{dj.name}</h3>
         </div>
       </div>
-      <div className="p-4 flex flex-col h-[calc(100%-16rem)]">
-        <p className="text-light/60 mb-4 text-sm flex-grow overflow-auto">
-          {dj.description}
-        </p>
-        <div className="mb-4">
-          <iframe 
-            width="100%" 
-            height="120" 
-            scrolling="no" 
-            frameBorder="no" 
-            allow="autoplay" 
-            src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${dj.trackId}&color=%23ff5b14&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
-            title={`${dj.name} SoundCloud Track`}
-          ></iframe>
+      {!isMobile ? (
+        <div className="p-4 flex flex-col h-[calc(100%-16rem)]">
+          <p className="text-light/60 mb-4 text-sm flex-grow overflow-auto">
+            {dj.description}
+          </p>
+          <div className="mb-4 soundcloud-container">
+            <iframe 
+              width="100%" 
+              height="120" 
+              scrolling="no" 
+              frameBorder="no" 
+              allow="autoplay" 
+              src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${dj.trackId}&color=%23ff5b14&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
+              title={`${dj.name} SoundCloud Track`}
+            ></iframe>
+          </div>
+          <button 
+            onClick={onClick}
+            className="profile-button"
+          >
+            Perfil Completo
+          </button>
         </div>
-        <button 
-          onClick={onClick}
-          className="profile-button"
-        >
-          Perfil Completo
-        </button>
-      </div>
+      ) : (
+        <div className="p-3 flex flex-col">
+          <div className="mb-2">
+            <iframe 
+              width="100%" 
+              height="80" 
+              scrolling="no" 
+              frameBorder="no" 
+              allow="autoplay" 
+              src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${dj.trackId}&color=%23ff5b14&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
+              title={`${dj.name} SoundCloud Track`}
+            ></iframe>
+          </div>
+          <button 
+            onClick={onClick}
+            className="profile-button mobile-profile-button"
+          >
+            Perfil Completo
+          </button>
+        </div>
+      )}
     </motion.div>
   )
 }
@@ -145,6 +184,19 @@ const Catalog = () => {
     })
   }, [activeIndex])
   
+  // Update activeIndex when screen size changes
+  useEffect(() => {
+    const handleResize = () => {
+      // Reset active index when switching between mobile and desktop
+      if (activeIndex > 0) {
+        setActiveIndex(0)
+      }
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [activeIndex])
+  
   const openProductModal = (product: DJ) => {
     setSelectedProduct(product)
     setIsProductModalOpen(true)
@@ -152,20 +204,6 @@ const Catalog = () => {
   
   const closeProductModal = () => {
     setIsProductModalOpen(false)
-  }
-  
-  const totalSlides = isMobile() ? filteredDJs.length : Math.ceil(filteredDJs.length / 3)
-  
-  const scrollToIndex = (index: number) => {
-    setActiveIndex(index)
-  }
-
-  const nextSlide = () => {
-    setActiveIndex(prev => (prev + 1) % totalSlides)
-  }
-
-  const prevSlide = () => {
-    setActiveIndex(prev => (prev - 1 + totalSlides) % totalSlides)
   }
   
   // Mobile touch handlers
@@ -211,6 +249,21 @@ const Catalog = () => {
     const slideWidth = carouselRef.current.offsetWidth + 16 // Width + gap
     const newIndex = Math.round(carouselRef.current.scrollLeft / slideWidth)
     setActiveIndex(Math.max(0, Math.min(newIndex, filteredDJs.length - 1)))
+  }
+  
+  // Calculate total slides based on screen size
+  const totalSlides = isMobile() ? filteredDJs.length : Math.ceil(filteredDJs.length / 3)
+  
+  const scrollToIndex = (index: number) => {
+    setActiveIndex(index)
+  }
+
+  const nextSlide = () => {
+    setActiveIndex(prev => (prev + 1) % totalSlides)
+  }
+
+  const prevSlide = () => {
+    setActiveIndex(prev => (prev - 1 + totalSlides) % totalSlides)
   }
   
   return (
