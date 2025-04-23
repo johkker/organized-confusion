@@ -3,12 +3,19 @@
 .contact-container {
   width: 100%;
   padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .contact-wrapper {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
   
   @media (min-width: vars.$breakpoint-md) {
     flex-direction: row;
@@ -28,9 +35,9 @@
 }
 
 .contact-title {
-  font-family: vars.$font-display;
+  font-family: vars.$font-accent;
   font-weight: 600;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   margin-bottom: 1rem;
   color: vars.$color-light;
 }
