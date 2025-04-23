@@ -54,18 +54,13 @@ const Events = () => {
       date: '17 Maio 2025',
       time: '21:00',
       location: 'Oroboro Underground - Curitiba, PR',
-      description: `A gente simplesmente não consegue ficar sem trazer uma bagunça para vocês. \n\n
+      description: `A gente simplesmente não consegue ficar sem trazer uma bagunça para vocês.
 
-Dessa vez, uma noite dedicada ao melhor que temos de dark-psy e hi-tech! No coração da cidade, no bar mais underground da cena, Oroboro Underground. \n\n
+Dessa vez, uma noite dedicada ao melhor que temos de dark-psy e hi-tech! No coração da cidade, no bar mais underground da cena, Oroboro Underground.
 
-Com somente 4 nomes, para que o artistas possam contar suas histórias com liberdade, temos: \n\n
+Com somente 4 nomes, para que o artistas possam contar suas histórias com liberdade.
 
-- Adarrun \n
-- AMMINT \n
-- DARTRIX \n
-- Slippermode \n\n
-
-Venha, chame os amigos, aproveite a bruxaria. \n
+Venha, chame os amigos, aproveite a bruxaria.
 
 Vida longa ao underground.`,
       imageUrl: 'https://s3.sa-east-1.amazonaws.com/pixtame-public/qtu7euqkss2c73uejy204qrzc2a4.webp',
@@ -294,7 +289,7 @@ Vida longa ao underground.`,
                   overflowX: 'hidden'
                 }}
               >
-                {filteredEvents.map((event, index) => (
+                {filteredEvents.map((event, _index) => (
                   <div 
                     className={`event-card ${event.status}`} 
                     key={event.id}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import './DJs.scss'
 import { useDJStore, type DJ } from '../../store/djStore'

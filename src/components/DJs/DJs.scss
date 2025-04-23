@@ -81,6 +81,7 @@
 
     .dj-image img {
       transform: scale(1.05);
+      filter: grayscale(0);
     }
   }
 }
@@ -97,7 +98,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    filter: grayscale(1);
   }
 }
 
@@ -188,14 +190,16 @@
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid $color-primary;
+  filter: grayscale(1);
+  transition: filter 0.3s ease;
 }
 
 .modal-dj-name {
   color: $color-light;
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 600;
   margin: 0 0 0.5rem;
-  font-family: $font-display;
+  font-family: $font-accent;
 }
 
 .modal-dj-description {
@@ -276,6 +280,10 @@
   &:active {
     transform: scale(0.95);
   }
+}
+
+.modal-dj-header:hover .modal-dj-image {
+  filter: grayscale(0);
 }
 
 @media (max-width: 768px) {

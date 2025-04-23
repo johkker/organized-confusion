@@ -18,7 +18,7 @@ const Header = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [logoLoaded, setLogoLoaded] = useState(false)
   const [showLogo, setShowLogo] = useState(false)
-  const [img, setImg] = useState<HTMLImageElement | null>(null)
+  const [, setImg] = useState<HTMLImageElement | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
