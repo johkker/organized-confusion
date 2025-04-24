@@ -1,8 +1,4 @@
-// Use dynamic import for bcryptjs
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const bcrypt = require('bcryptjs');
-
+import bcrypt from 'bcryptjs';
 import { config } from 'dotenv';
 import prisma from '../config/prisma';
 
@@ -36,6 +32,8 @@ async function seed() {
                 admin: true
             }
         });
+
+        console.log('Admin user created:', admin);
 
         // Create DJs
         console.log('Creating DJs...');
@@ -105,6 +103,41 @@ async function seed() {
             }
         });
 
+        const squeezeFlow = await prisma.dJ.create({
+            data: {
+                name: 'Squeeze Flow',
+                description: 'DJ set guiado por muito estudo e reportório. O projeto Squeeze Flow faz renascer músicas de velha escola do PsyTrance em linhas intensas e de psicodelia profunda. Transmite em seus DJ Sets uma clima sério, introspectivo e dançante.',
+                image: 'https://i1.sndcdn.com/avatars-oEZ5bjsqrLy19QnP-HKqNhw-t500x500.jpg',
+                soundcloud: 'https://soundcloud.com/squeezeflow',
+                trackId: '1601043528',
+                genres: ['Full-On Groove', 'Full-On Old School'],
+
+            }
+        });
+
+        const n1kowski = await prisma.dJ.create({
+            data: {
+                name: 'N1kowski',
+                description: 'TBD',
+                image: 'https://i1.sndcdn.com/avatars-zSiuOO27cJTFl9bw-4LbiBA-t500x500.jpg',
+                soundcloud: 'https://soundcloud.com/n1kowski',
+                trackId: '075561552',
+                genres: ['Prog Dark'],
+            }
+        });
+
+        const kaharo = await prisma.dJ.create({
+            data: {
+                name: 'Kaharo',
+                description: 'TBD',
+                image: 'https://i1.sndcdn.com/avatars-zSiuOO27cJTFl9bw-4LbiBA-t500x500.jpg',
+                soundcloud: 'https://soundcloud.com/pablokaharo_dj',
+                trackId: '075561552',
+                genres: ['Prog Dark'],
+            }
+        });
+
+
         // Create events
         console.log('Creating events...');
         await prisma.event.create({
@@ -123,9 +156,6 @@ async function seed() {
                     connect: [
                         { id: adarrun.id },
                         { id: slippermode.id },
-                        { id: dartrix.id },
-                        { id: ammint.id },
-                        { id: ynoc.id },
                         { id: floria.id }
                     ]
                 }

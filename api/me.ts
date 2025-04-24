@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 config();
 
 // Get auth token from request
-function getAuthToken(req: VercelRequest): string | null {
+export function getAuthToken(req: VercelRequest): string | null {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return null;

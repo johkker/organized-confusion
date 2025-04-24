@@ -2,22 +2,21 @@
   "name": "organized-confusion",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "prisma generate && prisma db push && tsc -b && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
+    "prisma:seed": "node --import tsx api/seed.ts",
     "api:dev": "vercel dev --listen 3000",
     "api:express": "node api/server.js",
     "api:build": "tsc -p tsconfig.api.json",
     "api:deploy": "vercel deploy --prod",
-    "db:seed": "node --import tsx api/src/utils/seedDb.ts",
-    "setup": "node setup.js"
+    "db:seed": "node --import tsx api/src/utils/seedDb.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.8.0",

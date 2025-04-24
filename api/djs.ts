@@ -1,6 +1,7 @@
-
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 import prisma from './src/config/prisma';
+
+// Define the handler function directly as the default export
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     const id = req.query.id as string | undefined;
 

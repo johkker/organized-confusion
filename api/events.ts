@@ -1,8 +1,23 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 import prisma from './src/config/prisma';
 
-export async function GET(request: Request) {
-    const url = new URL(request.url);
-    const id = url.searchParams.get('id');
+// Define the handler function directly as the default export
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+    const id = req.query.id as string | undefined;
+
+    // Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.setHeader('Access-Control-Max-Age', '86400');
+        return res.status(204).end();
+    }
+
+    if (req.method !== 'GET') {
+        res.setHeader('Allow', 'GET, OPTIONS');
+        return res.status(405).json({ error: `Method ${req.method} not allowed` });
+    }
 
     try {
         // GET /api/events – get all events
@@ -12,7 +27,7 @@ export async function GET(request: Request) {
                     djs: true
                 }
             });
-            return Response.json(events);
+            return res.status(200).json(events);
         }
 
         // GET /api/events?id=XXX – get event by ID
@@ -24,24 +39,12 @@ export async function GET(request: Request) {
         });
 
         if (!event) {
-            return Response.json({ error: 'Event not found' }, { status: 404 });
+            return res.status(404).json({ error: 'Event not found' });
         }
 
-        return Response.json(event);
+        return res.status(200).json(event);
     } catch (error) {
         console.error('Error processing request:', error);
-        return Response.json({ error: 'Internal server error' }, { status: 500 });
+        return res.status(500).json({ error: 'Internal server error' });
     }
-}
-
-export async function OPTIONS() {
-    return new Response(null, {
-        status: 204,
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            'Access-Control-Max-Age': '86400'
-        }
-    });
 } 
