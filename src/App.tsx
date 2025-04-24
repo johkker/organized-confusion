@@ -1,15 +1,23 @@
 import './App.scss'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header/Header'
 import Events from './components/Events/Events'
 import DJs from './components/DJs/DJs'
 import Contact from './components/Contact/Contact'
 import ThreeDBackground from './components/ThreeD/ThreeDBackground'
+import { useDJStore } from './store/djStore'
+import { useEventStore } from './store/eventStore'
 
 function App() {
   const [activeSection, setActiveSection] = useState<'events' | 'DJs' | 'contact'>('events')
+  const { fetchDJs } = useDJStore();
+  const { fetchEvents } = useEventStore();
 
-
+  // Pre-fetch data on app load
+  useEffect(() => {
+    fetchDJs();
+    fetchEvents();
+  }, [fetchDJs, fetchEvents]);
 
   const renderActiveSection = () => {
     switch (activeSection) {

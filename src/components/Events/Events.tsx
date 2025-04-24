@@ -2,27 +2,10 @@ import { useState, useRef, useEffect } from 'react'
 import './events.scss'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import DJs from '../DJs/DJs'
-
-interface Event {
-  id: string
-  title: string
-  date: string
-  time: string
-  location: string
-  description: string
-  imageUrl: string
-  ticketLink: string
-  isPast: boolean
-  status?: 'sold-out' | 'available' | 'coming-soon'
-  price?: string
-  lineup?: {
-    name: string
-    role: 'dj' | 'vj' | 'live'
-    time?: string
-  }[]
-}
+import { useEventStore } from '../../store/eventStore'
 
 const Events = () => {
+  const { events, loading, error, fetchEvents } = useEventStore()
   const [activeIndex, setActiveIndex] = useState(0)
   const [showPastEvents, setShowPastEvents] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
@@ -32,107 +15,10 @@ const Events = () => {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const carouselRef = useRef<HTMLDivElement>(null)
   
-  const events: Event[] = [
-    {
-      id: '1',
-      title: "B'day Party",
-      date: '05 Abril 2025',
-      time: '16:00',
-      location: 'Pinhais, PR',
-      description: 'Open Cooler, piscina e 24h de muitaaaa psicodelia. Uma celebração única com os melhores DJs da cena local e muitas surpresas para você curtir!',
-      imageUrl: 'https://i.imgur.com/pGbpAdL.png',
-      ticketLink: 'https://pixta.me/u/aniversarios-2025-oc',
-      isPast: true,
-      status: 'available',
-      price: 'R$ 50,00',
-      lineup: [
-      ]
-    },
-    {
-      id: '2',
-      title: 'DARK-TECH',
-      date: '17 Maio 2025',
-      time: '21:00',
-      location: 'Oroboro Underground - Curitiba, PR',
-      description: `A gente simplesmente não consegue ficar sem trazer uma bagunça para vocês.
-
-Dessa vez, uma noite dedicada ao melhor que temos de dark-psy e hi-tech! No coração da cidade, no bar mais underground da cena, Oroboro Underground.
-
-Com somente 4 nomes, para que o artistas possam contar suas histórias com liberdade.
-
-Venha, chame os amigos, aproveite a bruxaria.
-
-Vida longa ao underground.`,
-      imageUrl: 'https://s3.sa-east-1.amazonaws.com/pixtame-public/qtu7euqkss2c73uejy204qrzc2a4.webp',
-      ticketLink: 'https://pixta.me/u/organized-confusion-dark_tech-pokt-edition',
-      isPast: false,
-      status: 'available',
-      lineup: [
-        {
-          name: 'Adarrun',
-          role: 'dj',
-          time: '00:00 - 03:00',
-        },
-        {
-          name: 'DARTRIX',
-          role: 'dj',
-          time: '23:00 - 01:00',
-        },
-        {
-          name: 'AMMINT',
-          role: 'dj',
-          time: '21:00 - 23:00',
-        },
-        {
-          name: 'Slippermode',
-          role: 'dj',
-          time: '03:00 - 05:00',
-        }
-      ]
-    },
-    {
-      id: '3',
-      title: 'Edição Julina - 2025',
-      date: 'Julho 2025',
-      time: '??:??',
-      location: 'TBD',
-      description: 'Fogueira, quentão e forrozinho alienígena.',
-      imageUrl: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4',
-      ticketLink: '#',
-      isPast: false,
-      status: 'coming-soon',
-      lineup: [
-        {
-          name: 'Line-up em breve',
-          role: 'dj'
-        }
-      ]
-    },
-    {
-      id: '4',
-      title: 'Halloween Edition',
-      date: 'Outubro 2025',
-      time: '??:??',
-      location: 'TBD',
-      description: 'Trick or treat, mdfker??? ',
-      imageUrl: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3',
-      ticketLink: '#',
-      isPast: false,
-      status: 'coming-soon'
-    },
-    {
-      id: '5',
-      title: 'Encerramento do Ano',
-      date: 'Dezembro 2025',
-      time: '??:??',
-      location: 'TBD',
-      description: 'Pra fechar daquele jeito.',
-      imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30',
-      ticketLink: '#',
-      isPast: false,
-      status: 'coming-soon'
-    }
-  ]
+  // Fetch events on component mount
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
 
   const filteredEvents = events.filter(event => event.isPast === showPastEvents)
   const totalSlides = filteredEvents.length
@@ -227,6 +113,15 @@ Vida longa ao underground.`,
       })
     }
   }, [activeIndex])
+
+  if (loading) {
+    return <div className="loading-container">Loading events...</div>;
+  }
+
+  if (error) {
+    console.warn(error);
+    // Continue with the fallback data
+  }
 
   return (
     <>
@@ -339,11 +234,11 @@ Vida longa ao underground.`,
                       </div>
                       <p className="event-description">{event.description}</p>
                       
-                      {event.lineup && event.lineup.length > 0 && (
+                      {event.djs && event.djs.length > 0 && (
                         <div className="event-lineup">
                           <button 
                             className="lineup-button"
-                            onClick={() => setSelectedLineup(event.lineup?.map(artist => artist.name) || null)}
+                            onClick={() => setSelectedLineup(event.djs?.map(dj => dj.name) || null)}
                           >
                             Ver Line-up
                           </button>
@@ -351,7 +246,7 @@ Vida longa ao underground.`,
                       )}
 
                       <a 
-                        href={event.ticketLink} 
+                        href={event.ticketLink || '#'} 
                         className={`event-link ${event.status}`}
                         {...((event.status === 'coming-soon' || event.status === 'sold-out' || event.isPast) && { 'aria-disabled': 'true' })}
                       >
