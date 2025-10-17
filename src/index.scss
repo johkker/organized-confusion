@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Bangers&display=swap');
+@import './assets/styles/fonts';
 
 // Variables
 $color-primary: #5F00E0;
@@ -11,7 +11,8 @@ $color-dark: #121212;
 $color-light: #F4F4F4;
 $font-sans: 'Inter', system-ui, sans-serif;
 $font-display: 'Montserrat', sans-serif;
-
+$font-impact: 'Tourner', Impact;
+$font-accent: 'Cynatar', sans-serif;
 :root {
   font-family: Inter, system-ui, sans-serif;
   line-height: 1.5;
@@ -65,7 +66,7 @@ body {
   }
   
   &-secondary {
-    background-color: $color-secondary;
+    background-color: var(--color-secondary);
     color: white;
     &:hover {
       opacity: 0.9;
@@ -80,11 +81,11 @@ body {
 
 // Text colors
 .text-primary {
-  color: $color-primary;
+  color: var(--color-primary);
 }
 
 .text-secondary {
-  color: $color-secondary;
+  color: var(--color-secondary);
 }
 
 .text-light {
@@ -101,15 +102,15 @@ body {
 
 // Background colors
 .bg-primary {
-  background-color: $color-primary;
+  background-color: var(--color-primary); 
 }
 
 .bg-secondary {
-  background-color: $color-secondary;
+  background-color: var(--color-secondary);
 }
 
 .bg-dark {
-  background-color: $color-dark;
+  background-color: var(--color-dark);
   
   &-70 {
     background-color: rgba($color-dark, 0.7);

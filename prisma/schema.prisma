@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(uuid())
+  name           String
+  email          String   @unique
+  password       String
+  whatsappNumber String   @map("whatsapp_number")
+  zipcode        String
+  cpf            String
+  dateOfBirth    DateTime @map("date_of_birth")
+  admin          Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  tickets        Ticket[]
+  albums         Album[]
+  buyers         Buyer[]
+
+  @@map("users")
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  date        String
+  time        String
+  location    String
+  description String
+  imageUrl    String   @map("image_url")
+  ticketLink  String?  @map("ticket_link")
+  isPast      Boolean  @default(false) @map("is_past")
+  status      String   @default("coming-soon")
+  price       Decimal? @db.Decimal(10, 2)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  djs         DJ[]     @relation("EventDJs")
+  tickets     Ticket[]
+  albums      Album[]
+
+  @@map("events")
+}
+
+model DJ {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  image       String
+  soundcloud  String?
+  trackId     String?  @map("track_id")
+  genres      String[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  events      Event[]  @relation("EventDJs")
+
+  @@map("djs")
+}
+
+model Ticket {
+  id            String    @id @default(uuid())
+  code          String    @unique
+  price         Decimal   @db.Decimal(10, 2)
+  status        String    @default("pending")
+  paymentId     String?   @map("payment_id")
+  paymentMethod String?   @map("payment_method")
+  usedAt        DateTime? @map("used_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  event         Event     @relation(fields: [eventId], references: [id])
+  eventId       String    @map("event_id")
+  buyer         Buyer     @relation(fields: [buyerId], references: [id])
+  buyerId       String    @map("buyer_id")
+  user          User?     @relation(fields: [userId], references: [id])
+  userId        String?   @map("user_id")
+
+  @@map("tickets")
+}
+
+model Buyer {
+  id        String   @id @default(uuid())
+  name      String
+  cpf       String
+  email     String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?  @map("user_id")
+  tickets   Ticket[]
+
+  @@map("buyers")
+}
+
+model Album {
+  id        String       @id @default(uuid())
+  title     String
+  public    Boolean      @default(false)
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @updatedAt @map("updated_at")
+  event     Event        @relation(fields: [eventId], references: [id])
+  eventId   String       @map("event_id")
+  user      User         @relation(fields: [userId], references: [id])
+  userId    String       @map("user_id")
+  images    AlbumImage[]
+
+  @@map("albums")
+}
+
+model AlbumImage {
+  id           String   @id @default(uuid())
+  imageUrl     String   @map("image_url")
+  description  String?
+  cloudinaryId String   @map("cloudinary_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  album        Album    @relation(fields: [albumId], references: [id])
+  albumId      String   @map("album_id")
+
+  @@map("album_images")
+} 

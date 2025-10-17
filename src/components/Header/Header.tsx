@@ -2,22 +2,23 @@ import { useState, useEffect } from 'react'
 import './header.scss'
 
 interface HeaderProps {
-  activeSection: 'home' | 'events' | 'catalog' | 'contact' | 'ingressos'
+  activeSection: 'home' | 'events' | 'DJs' | 'contact' 
   onEventsClick: () => void
-  onCatalogClick: () => void
+  onDJsClick: () => void
   onContactClick: () => void
-  onIngressosClick?: () => void
 }
 
 const Header = ({ 
   activeSection, 
   onEventsClick, 
-  onCatalogClick, 
-  onContactClick, 
-  onIngressosClick 
+  onDJsClick, 
+  onContactClick
 }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [logoLoaded, setLogoLoaded] = useState(false)
+  const [showLogo, setShowLogo] = useState(false)
+  const [, setImg] = useState<HTMLImageElement | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,28 +29,47 @@ const Header = ({
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+    // Preload the logo image with a delay
+  useEffect(() => {
+    const img = new Image();
+    img.src = '/logo.png';
+    setImg(img)
+    img.onload = () => {
+      setLogoLoaded(true);
+      setTimeout(() => {
+        setShowLogo(true);
+      }, 1200);
+    };
+  }, []);
+
   return (
     <header className={isScrolled ? 'scrolled' : 'transparent'}>
       <div className="container header-container">
         {/* Logo */}
         <div className="logo">
-          <h1>
-            <span className="logo-text">OC</span>
-            <span className="logo-highlight">041</span>
-          </h1>
+          {showLogo && (
+            <img 
+              src="/logo.png" 
+              alt="OC041 Logo" 
+              className="logo-img"
+              style={{ 
+                opacity: showLogo ? 1 : 0,
+                transition: 'opacity 0.5s ease-in-out',
+                width: '100px',
+              }}
+            />
+          )}
+          {!logoLoaded && (
+             <h1>
+              <span className="logo-text">OC</span>
+              <span className="logo-highlight">041</span>
+            </h1>
+          )}
         </div>
 
         {/* Desktop Menu */}
         <nav className="desktop-menu">
-          {onIngressosClick && (
-            <button 
-              onClick={onIngressosClick} 
-              className={`nav-button ticket-nav-button ${activeSection === 'ingressos' ? 'active' : ''}`}
-            >
-              Ingressos
-              <span className="ticket-indicator"></span>
-            </button>
-          )}
+
           <button 
             onClick={onEventsClick} 
             className={`nav-button ${activeSection === 'events' ? 'active' : ''}`}
@@ -57,10 +77,10 @@ const Header = ({
             Eventos
           </button>
           <button 
-            onClick={onCatalogClick} 
-            className={`nav-button ${activeSection === 'catalog' ? 'active' : ''}`}
+            onClick={onDJsClick} 
+            className={`nav-button ${activeSection === 'DJs' ? 'active' : ''}`}
           >
-            Catálogo
+            DJs
           </button>
           <button 
             onClick={onContactClick} 
@@ -103,18 +123,7 @@ const Header = ({
       {isMobileMenuOpen && (
         <div className="mobile-menu">
           <div className="container mobile-menu-container">
-            {onIngressosClick && (
-              <button 
-                onClick={() => {
-                  onIngressosClick()
-                  setIsMobileMenuOpen(false)
-                }} 
-                className={`mobile-nav-button mobile-ticket-button ${activeSection === 'ingressos' ? 'active' : ''}`}
-              >
-                Ingressos
-                <span className="ticket-indicator"></span>
-              </button>
-            )}
+
             <button 
               onClick={() => {
                 onEventsClick()
@@ -126,12 +135,12 @@ const Header = ({
             </button>
             <button 
               onClick={() => {
-                onCatalogClick()
+                onDJsClick()
                 setIsMobileMenuOpen(false)
               }} 
-              className={`mobile-nav-button ${activeSection === 'catalog' ? 'active' : ''}`}
+              className={`mobile-nav-button ${activeSection === 'DJs' ? 'active' : ''}`}
             >
-              Catálogo
+              DJs
             </button>
             <button 
               onClick={() => {
