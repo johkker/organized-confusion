@@ -1,0 +1,39 @@
+// Font declarations
+@font-face {
+  font-family: 'Tourner'; // We'll replace this with your actual font name
+  src: url('../fonts/Tourner.ttf') format('truetype'); // We'll update this with your actual font file
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Glitch';
+  src: url('../fonts/Glitch.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+  font-stretch: normal;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+// Add bold weight
+@font-face {
+  font-family: 'Glitch';
+  src: url('../fonts/Glitch.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+  font-stretch: normal;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+@font-face {
+    font-family: 'Cynatar';
+    src: url('../fonts/Cynatar.otf') format(   'opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+

@@ -1,13 +1,16 @@
 // Colors
-$color-primary: #5f00e0;    // Purple
-$color-secondary: #ff5b14;  // Orange
-$color-dark: #121212;       // Dark background
-$color-light: #ffffff;      // Light text
+$color-primary: #0080a0;    // Purple
+$color-secondary: #aaebff;  // Orange
+$color-dark: #000000;       // Dark background
+$color-dark-accent: #004449;     // Accent color
+$color-light: #f2fdff;      // Light text
+
 
 // Fonts
 $font-sans: 'Inter', system-ui, sans-serif;
 $font-display: 'Montserrat', sans-serif;
-$font-impact: 'Bangers', cursive;
+$font-impact: 'Tourner', Impact;
+$font-accent: 'Cynatar', sans-serif;
 
 // Breakpoints
 $breakpoint-sm: 640px;
